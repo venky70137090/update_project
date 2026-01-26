@@ -1,7 +1,12 @@
+import os
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
-DATABASE_URL = "cockroachdb://venky:GlPaYWo1DAuDf76pMgUlkw@opal-ent-20761.j77.aws-ap-south-1.cockroachlabs.cloud:26257/projectdb?sslmode=require"
+DEFAULT_DATABASE_URL = "cockroachdb://venky:GlPaYWo1DAuDf76pMgUlkw@opal-ent-20761.j77.aws-ap-south-1.cockroachlabs.cloud:26257/projectdb?sslmode=require"
+
+# Allow overriding the database URL via the environment for tests/local runs.
+# Example for tests: DATABASE_URL=sqlite+pysqlite:///:memory: pytest -q
+DATABASE_URL = os.environ.get("DATABASE_URL", DEFAULT_DATABASE_URL)
 
 engine = create_engine(
     DATABASE_URL,

@@ -1,7 +1,6 @@
-from tables import SessionLocal,Student,Assignment,init_db
+from tables import SessionLocal,Student,Assignment
 from flask import Flask,request,jsonify
 app=Flask(__name__)
-init_db()
 @app.route("/",methods=['GET'])
 def get_student():
     with SessionLocal() as s:
@@ -145,7 +144,7 @@ def update_assign(id):
 
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0", debug=True, port=8000)
+    app.run( debug=True, port=5000)
 
 
 

@@ -10,7 +10,7 @@ def client():
 
 @pytest.fixture(autouse=True)
 def setup_teardown():
-    init_db()
+    # init_db() is now handled in conftest.py
     yield
     with SessionLocal() as s:
         s.query(Assignment).delete()
