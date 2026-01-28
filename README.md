@@ -21,4 +21,8 @@ using pytest ,we are checking weather these pytest operations performing as expe
 docker :
 docker is used to containrise . my application  is  easy to share and use for others without version and enivorment conflict.
 
+u can run these using
+docker build -t charan(any name) .
+docker run --name charan-container -p 6000:6000 charan
+
 
