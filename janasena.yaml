@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: charan
+  labels:
+    app: panja
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: panja
+  template:
+    metadata:
+      labels:
+        app: panja
+    spec:
+      containers:
+        - name: chiru
+          image: venkysankarasetty/hcl:latest
+          imagePullPolicy: Always   # latest tag కాబట్టి Always మంచిది
+          ports:
+            - containerPort: 8000
+          # (optional) app health checks ఉంటే uncomment చేయండి
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8000
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8000
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 20
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hanuman
+  labels:
+    app: panja
+spec:
+  selector:
+    app: panja
+  ports:
+    - name: http
+      port: 8080        # ClusterIP లో service port
+      targetPort: 8000  # containerPort
+  type: NodePort        # Need external access from node? ok
+  # (optional) static NodePort specify చేయాలంటే 30000-32767 లో ఇవ్వండి
+  # nodePort: 30080
