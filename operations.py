@@ -1,5 +1,6 @@
-from tables import SessionLocal,Student,Assignment
+from tables import SessionLocal,Student,Assignment, init_db
 from flask import Flask,request,jsonify
+init_db()
 app=Flask(__name__)
 @app.route("/",methods=['GET'])
 def get_student():
@@ -47,7 +48,7 @@ def post_student():
         return jsonify({'message ': 'something is missing bro ,please checked it once in post methhod in student'})
     with SessionLocal() as s:
         eid = s.query(Student.id).all()
-        eids = [row[0] for row in eid] #redifend
+        eids = [row[0] for row in eid]
         if x not in eids:
             student=Student(id=x,name=y,status=z)
             s.add(student)
@@ -144,7 +145,7 @@ def update_assign(id):
 
 
 if __name__=="__main__":
-    app.run( debug=True, port=8000)
+    app.run(host='0.0.0.0', debug=True, port=6000)
 
 
 
